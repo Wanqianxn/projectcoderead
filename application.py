@@ -53,7 +53,7 @@ def ping():
         time.sleep(5)
     return 1
 
-@app.task
+@celery.task
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
