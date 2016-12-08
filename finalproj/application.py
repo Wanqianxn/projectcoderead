@@ -1,19 +1,15 @@
-import os, re, time, datetime, signal
-from flask import Flask, jsonify, render_template, request, redirect, url_for, session, Response
+import os, re, time, signal
+from flask import Flask, jsonify, render_template, request, redirect, url_for, Response
 from flask_jsglue import JSGlue
 from werkzeug.utils import secure_filename
 from shutil import copyfile
-from flask_session import Session
-from tempfile import gettempdir
-from threading import Thread
 
-from cs50 import SQL
 from helpers import *
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = set(['txt'])
 
-# configure application
+# Configure Flask application amd set parameters for uploaded files.
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 JSGlue(app)
@@ -25,17 +21,14 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# configure CS50 Library to use SQLite database
-# db = SQL("sqlite:///mashup.db")
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
  
-app.config["SESSION_FILE_DIR"] = gettempdir()
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app) 
-         
+
+# General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
+
+# Index, Acknowledgments and Contact.         
 @app.route("/")
 def index():
     cleanup()
@@ -50,11 +43,13 @@ def acknowledgments():
 def contact():
     cleanup()
     return render_template("contact.html")
-    
+
+# Map section.    
 @app.route("/map",  methods=["GET", "POST"])
 def map():
     cleanup()
     if request.method == "POST":
+        # Below section checks for presence of file, as well as suitable length.
         if 'inputfile' not in request.files:
            return render_template("map.html", nofile = True)
         file = request.files['inputfile']
@@ -74,11 +69,13 @@ def map():
             for filename in os.listdir('uploads'):
                 os.remove("uploads/"+filename)
             return render_template("map.html", toolong = True)
+        # These functions help generate the actual graph.
         modify()
         network()
         return render_template("mapcreate.html")
     return render_template("map.html")
-    
+
+# Map graphs generated for the example texts.    
 @app.route("/map/genesis")
 def mapgenesis():
     cleanup()
@@ -104,6 +101,7 @@ def mapemma():
     cleanup()
     return render_template("mapemma.html")
     
+# Emotion section.    
 @app.route("/emotion",  methods=["GET", "POST"])
 def emotion():
     cleanup()
@@ -127,11 +125,13 @@ def emotion():
             for filename in os.listdir('uploads'):
                 os.remove("uploads/"+filename)
             return render_template("emotion.html", toolong = True)
+        # These functions generate the actual colormap.
         emodify()
         spectrums = spectrum()
         return render_template("emotioncreate.html", anger = spectrums[0], anti = spectrums[1], joy = spectrums[2], disgust = spectrums[3], sad = spectrums[4], fear = spectrums[5])
     return render_template("emotion.html")
-    
+
+# Emotion colormaps generated for the example texts.    
 @app.route("/emotion/emma")
 def emotionemma():
     cleanup()
@@ -157,6 +157,7 @@ def emotiongenesis():
     cleanup()
     return render_template("emotiongenesis.html")
 
+# Genre section.
 @app.route("/genre",  methods=["GET", "POST"])
 def genre():
     cleanup()
@@ -180,19 +181,30 @@ def genre():
             for filename in os.listdir('uploads'):
                 os.remove("uploads/"+filename)
             return render_template("genre.html", toolong = True)
-        gmodify()
+        # Again, the actual functions that generated the bubble chart.
+        emodify()
         (mean,sigma,ratio) = metrics()
         return render_template("genrecreate.html", mean = mean, sigma = sigma, ratio = ratio)
     return render_template("genre.html")
 
+# Visualization of bubble chart.
 @app.route("/genre/visual")
 def genrevisual():
     cleanup()
     return render_template("genrevisual.html")
     
+# Create section.
 @app.route("/create",  methods=["GET", "POST"])
 def create():
     cleanup()
+    # This part forcibly stops the infinite while loop in writestory() by destroying and recreating the 'uploads' folder.
+    for filename in os.listdir('uploads'):
+        if filename.startswith("input"):
+            os.remove("uploads/"+filename)
+    os.rmdir("uploads")
+    time.sleep(5)
+    os.makedirs("uploads")
+    
     if request.method == "POST":
         if 'inputfile' not in request.files:
            return render_template("create.html", nofile = True)
@@ -215,7 +227,8 @@ def create():
             return render_template("create.html", toolong = True)
         return render_template("createcustom.html")
     return render_template("create.html")
-    
+
+# Example texts for Create.
 @app.route("/create/genesis")
 def creategenesis():
     return render_template("creategenesis.html")
@@ -235,7 +248,8 @@ def createodyssey():
 @app.route("/create/emma")
 def createemma():
     return render_template("createemma.html")
-    
+
+# Jsonify acts as the medium through which Javascript AJAX requests are sent to the Python server. Both the functions below are for the Create section.
 @app.route('/writeupdate')
 def writeupdate():
     obtainer = obtain()

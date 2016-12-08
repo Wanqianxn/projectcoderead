@@ -4,8 +4,9 @@ from string import punctuation
 from collections import Counter
 from shutil import copyfile
 
+# On accessing any webpage, cleanup all temporary folders created when the user uploaded files.
 def cleanup():
-    # Cleanup for uploads folder.
+    # Cleanup for uploads folder, used in all 4 apps.
     for filename in os.listdir('uploads'):
         if filename.startswith("input"):
             os.remove("uploads/"+filename)
@@ -13,7 +14,7 @@ def cleanup():
     for filename in os.listdir('static/jsonobjects'):
         if filename.startswith("input"):
             os.remove("static/jsonobjects/"+filename)
-    # Cleanup for Emotion.
+    # Cleanup for Emotion. Note that the old colormap.js file is removed as a new one copied from a template.
     for filename in os.listdir('static/emotions'):
         if filename.startswith("bundle"):
             os.remove("static/emotions/"+filename)
@@ -22,6 +23,7 @@ def cleanup():
             os.remove("static/emotions/node_modules/colormap/"+filename)
     copyfile('static/emotions/tcolorScales.js','static/emotions/node_modules/colormap/colorScales.js')
 
+# Modifies uploaded file for Map for proper processing.
 def modify():
     # Part I: Split into sentences
     input = open("uploads/input.txt","r")
@@ -63,7 +65,7 @@ def modify():
     input.close()
     output.close()
     
-    # Part IV: Stopword and punctuation removal
+    # Part IV: Stopwords and punctuation removal
     filein1= open("static/stopwords.txt","r")
     filein2 = open("uploads/input3.txt","r")
     fileout = open("uploads/input4.txt", "w")
@@ -114,37 +116,32 @@ def modify():
     os.remove("uploads/input2.txt")
     os.remove("uploads/input3.txt")
     os.remove("uploads/input4.txt")
-    
-def network():
-    input = open("uploads/inputfinal.txt","r")
 
+# Create JSON object for graph visualization in Map.    
+def network():
+    # List out all words in file.
+    input = open("uploads/inputfinal.txt","r")
     setofwords = set()
     dictsize = {}
-
     for line in input:
         for word in line.split():
             setofwords.add(word)
-
     for word in setofwords:
         dictsize[word] = {"sizee": 0}
-
     input.close()
     
+    # Count frequency of each word in file, and creating list of all nodes.
     input = open("uploads/inputfinal.txt","r")
-
     for line in input:
         for word in line.split():
             dictsize[word]["sizee"] += 1
-
     nodes = []
-
     for word in setofwords:
         nodes.append({"id": word, "label": word, "x" : "0", "y" : "0", "size": dictsize[word]["sizee"]})
-
     input.close()
 
+    # Create list of edges.
     edges = []
-
     input = open("uploads/inputfinal.txt","r")
     linearray = []
     count = 0
@@ -168,44 +165,41 @@ def network():
                         edges.append({"id": count, "source": linearray[j], "target": linearray[k], "size": 1, "type": "curve"})
                         count += 1
         linearray = []
-
     input.close()
 
+    # Only count edges with size over 5.
     edge2 = []
     for n in range(len(edges)):
         if edges[n]["size"] > 5:
             edge2.append(edges[n])
 
+    # Input nodes and edges as a JSON object and sive into directory.
     edges = edge2
-
     jason = {"nodes": nodes, "edges": edges}
     output = open("static/jsonobjects/inputfinal.json", "w")
     output.write(json.dumps(jason))
     output.close()
-    
+
+# Modifies uploaded file for Emotion and Genre for proper processing.
 def emodify():
     # Part I: Split into sentences
     input = open("uploads/input.txt","r")
     output = open("uploads/input1.txt", "w")
-
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     data = input.read()
     output.write('\n-----\n'.join(tokenizer.tokenize(data)))
-
     input.close()
     output.close()
     
     # Part II: Split into lines
     input = open("uploads/input1.txt","r")
     output = open("uploads/input2.txt", "w")
-    
     for line in input:
         line = line.strip("\n")
         if (line == "-----"):
             output.write("\n")
         else:
             output.write(line + " ")
-            
     input.close()
     output.close()
     
@@ -227,31 +221,28 @@ def emodify():
     # Part IV: Punctuation removal
     filein2 = open("uploads/input3.txt","r")
     fileout = open("uploads/inputfinal.txt", "w")
-
-
     for linex in filein2:
         for word in linex.split():
             worda = word.lower()
             worda = ''.join(c for c in worda if c not in punctuation)
             fileout.write(worda + " ")
         fileout.write("\n")
-        
     filein2.close()
     fileout.close()
 
-    
     # Delete unwanted files
     os.remove("uploads/input.txt")
     os.remove("uploads/input1.txt")
     os.remove("uploads/input2.txt")
     os.remove("uploads/input3.txt")
     
+# Creates bundle.js Javascript file for colormap processing.
 def spectrum():
     input = open("static/emolex.txt","r")
 
+    # Create list + dict structure to store each word's emotional values from the "dictionary".
     emodic = {}
     count = 10
-
     for line in input:
         line = line.split()
         if count % 10 == 0:
@@ -274,10 +265,12 @@ def spectrum():
             count += 1
 
     input.close()
-
+    
+     
     rangeemot = ["anger","anticipation","joy","disgust","sadness","fear"]
     occurences = []
-    
+    # Everything below is iterated for all 6 emotions.
+    # Open the text file and rewrite each word as "0" or "1" depending on emotional value.
     for emotion in rangeemot:
         input = open("uploads/inputfinal.txt","r")
         output = open("uploads/input"+emotion+".txt","w")
@@ -294,6 +287,7 @@ def spectrum():
         input.close()
         output.close()
         
+        # Count total number of words.
         input = open("uploads/input"+emotion+".txt","r")
         total = 0
 
@@ -302,6 +296,7 @@ def spectrum():
                 total += 1
         input.close()
         
+        # Creation of JSON structure containing all the emotional words, as well as their position in the text (i.e. ratio of current count to total word count.)
         input = open("uploads/input"+emotion+".txt","r")
         output = open("static/emotions/node_modules/colormap/colorScales.js","a")
         emot = []
@@ -329,6 +324,8 @@ def spectrum():
                     prev = countw/total
             
         emot.append({"index": 1, "rgb": [0,0,0]})
+        
+        # Write JSON-like object.
         temp = json.dumps(emot)
         if emotion == "fear":
             output.write("\""+emotion+"\":"+temp+"\n"+"\n")
@@ -337,66 +334,23 @@ def spectrum():
         input.close()
         output.close()
         occurences.append(int(((len(emot)-2)/3)))
-        
+    
+    # Copy JSON-like object (necessary for Javascript visualization) to a file
     input = open("static/emotions/node_modules/colormap/colorScales.js","a")
     input.write("};")
     input.close()
     
+    # Creation of bundle.js, which serves as the actual JS file for colormap generation.
     os.system("browserify static/emotions/main.js > static/emotions/bundle.js")
     return occurences
-    
-def gmodify():
-    input = open("uploads/input.txt","r")
-    output = open("uploads/input1.txt", "w")
-    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-    data = input.read()
-    output.write('\n-----\n'.join(tokenizer.tokenize(data)))
-    input.close()
-    output.close()
 
-    input = open("uploads/input1.txt","r")
-    output = open("uploads/input2.txt", "w")
-    for line in input:
-        line = line.strip("\n")
-        if (line == "-----"):
-            output.write("\n")
-        else:
-            output.write(line + " ")
-    input.close()
-    output.close()
-    
-    input = open("uploads/input2.txt","r")
-    output = open("uploads/input3.txt", "w")
-    for line in input:
-        line = line.replace("--","\n")
-        line = line.replace("’","")
-        line = line.replace("”","")
-        line = line.replace("“","")
-        output.write(re.sub("\d+", " ", line))
-    input.close()
-    output.close()
-    
-    filein2 = open("uploads/input3.txt","r")
-    fileout = open("uploads/inputfinal.txt", "w")
-    for linex in filein2:
-        for word in linex.split():
-            worda = word.lower()
-            worda = ''.join(c for c in worda if c not in punctuation)
-            fileout.write(worda + " ")
-        fileout.write("\n")
-    filein2.close()
-    fileout.close()
-    
-    os.remove("uploads/input.txt")
-    os.remove("uploads/input1.txt")
-    os.remove("uploads/input2.txt")
-    os.remove("uploads/input3.txt")
-        
+# Processing of uploaded file for Genre to plot onto bubble map.
 def metrics():
     count = 0
     length = []
     pastcount = 0
     
+    # Count: total word count, average sentence count as well as past tense/past participle count.
     input = open("uploads/inputfinal.txt", "r")
     for line in input:
         if line != "\n":
@@ -407,67 +361,65 @@ def metrics():
                 wordtype = nltk.pos_tag(word.split())[0][1]
                 if wordtype == "VBD" or wordtype == "VBN":
                     pastcount += 1
-            if sentence < 30 and sentence > 2:
+            if sentence < 30 and sentence > 2: # Sentences too long or short are not counted, as they may have been processing erors by NLTK.
                 length.append(sentence)
     input.close()
     
+    # Calculate mean sentence length, sigma for standard lengths as well as shoe ratio.
     numpyarr = numpy.array(length)
     mean = numpy.mean(numpyarr, axis=0)
     sigma = numpy.std(numpyarr, axis=0)
     ratio = (pastcount/count)
-    
     return (mean, sigma, ratio)
-    
+
+# RNN Code.
 def write(name):
-    data = open(name, 'r').read() # should be simple plain text file
+    data = open(name, 'r').read()
     chars = list(set(data))
     data_size, vocab_size = len(data), len(chars)
     char_to_ix = { ch:i for i,ch in enumerate(chars) }
     ix_to_char = { i:ch for i,ch in enumerate(chars) }
 
-    # hyperparameters
-    hidden_size = 100 # size of hidden layer of neurons
-    seq_length = 25 # number of steps to unroll the RNN for
+    # Hyper-paramters. These affect the speed at which the RNN generates iterations of text.
+    hidden_size = 100
+    seq_length = 25
     learning_rate = 1e-1
     
-    # model parameters
-    Wxh = numpy.random.randn(hidden_size, vocab_size)*0.01 # input to hidden
-    Whh = numpy.random.randn(hidden_size, hidden_size)*0.01 # hidden to hidden
-    Why = numpy.random.randn(vocab_size, hidden_size)*0.01 # hidden to output
-    bh = numpy.zeros((hidden_size, 1)) # hidden bias
-    by = numpy.zeros((vocab_size, 1)) # output bias
+    Wxh = numpy.random.randn(hidden_size, vocab_size)*0.01
+    Whh = numpy.random.randn(hidden_size, hidden_size)*0.01 
+    Why = numpy.random.randn(vocab_size, hidden_size)*0.01 
+    bh = numpy.zeros((hidden_size, 1)) 
+    by = numpy.zeros((vocab_size, 1)) 
     
     def lossFun(inputs, targets, hprev):
       xs, hs, ys, ps = {}, {}, {}, {}
       hs[-1] = numpy.copy(hprev)
       loss = 0
       
-      # forward pass
       for t in range(len(inputs)):
-        xs[t] = numpy.zeros((vocab_size,1)) # encode in 1-of-k representation
+        xs[t] = numpy.zeros((vocab_size,1)) 
         xs[t][inputs[t]] = 1
-        hs[t] = numpy.tanh(numpy.dot(Wxh, xs[t]) + numpy.dot(Whh, hs[t-1]) + bh) # hidden state
-        ys[t] = numpy.dot(Why, hs[t]) + by # unnormalized log probabilities for next chars
-        ps[t] = numpy.exp(ys[t]) / numpy.sum(numpy.exp(ys[t])) # probabilities for next chars
-        loss += -numpy.log(ps[t][targets[t],0]) # softmax (cross-entropy loss)
+        hs[t] = numpy.tanh(numpy.dot(Wxh, xs[t]) + numpy.dot(Whh, hs[t-1]) + bh) 
+        ys[t] = numpy.dot(Why, hs[t]) + by 
+        ps[t] = numpy.exp(ys[t]) / numpy.sum(numpy.exp(ys[t])) 
+        loss += -numpy.log(ps[t][targets[t],0]) #
         
-      # backward pass: compute gradients going backwards
       dWxh, dWhh, dWhy = numpy.zeros_like(Wxh), numpy.zeros_like(Whh), numpy.zeros_like(Why)
       dbh, dby = numpy.zeros_like(bh), numpy.zeros_like(by)
       dhnext = numpy.zeros_like(hs[0])
       for t in reversed(range(len(inputs))):
         dy = numpy.copy(ps[t])
-        dy[targets[t]] -= 1 # backprop into y. see http://cs231n.github.io/neural-networks-case-study/#grad if confused here
+        dy[targets[t]] -= 1 # 
         dWhy += numpy.dot(dy, hs[t].T)
         dby += dy
-        dh = numpy.dot(Why.T, dy) + dhnext # backprop into h
-        dhraw = (1 - hs[t] * hs[t]) * dh # backprop through tanh nonlinearity
+        dh = numpy.dot(Why.T, dy) + dhnext 
+        dhraw = (1 - hs[t] * hs[t]) * dh 
         dbh += dhraw
         dWxh += numpy.dot(dhraw, xs[t].T)
         dWhh += numpy.dot(dhraw, hs[t-1].T)
         dhnext = numpy.dot(Whh.T, dhraw)
       for dparam in [dWxh, dWhh, dWhy, dbh, dby]:
-        numpy.clip(dparam, -5, 5, out=dparam) # clip to mitigate exploding gradients
+        numpy.clip(dparam, -5, 5, out=dparam) 
       return loss, dWxh, dWhh, dWhy, dbh, dby, hs[len(inputs)-1]
     
     def sample(h, seed_ix, n):
@@ -486,39 +438,40 @@ def write(name):
     
     n, p = 0, 0
     mWxh, mWhh, mWhy = numpy.zeros_like(Wxh), numpy.zeros_like(Whh), numpy.zeros_like(Why)
-    mbh, mby = numpy.zeros_like(bh), numpy.zeros_like(by) # memory variables for Adagrad
-    smooth_loss = -numpy.log(1.0/vocab_size)*seq_length # loss at iteration 0
+    mbh, mby = numpy.zeros_like(bh), numpy.zeros_like(by)
+    smooth_loss = -numpy.log(1.0/vocab_size)*seq_length 
     while True:
-      # prepare inputs (we're sweeping from left to right in steps seq_length long)
       if p+seq_length+1 >= len(data) or n == 0: 
-        hprev = numpy.zeros((hidden_size,1)) # reset RNN memory
-        p = 0 # go from start of data
+        hprev = numpy.zeros((hidden_size,1)) 
+        p = 0 
       inputs = [char_to_ix[ch] for ch in data[p:p+seq_length]]
       targets = [char_to_ix[ch] for ch in data[p+1:p+seq_length+1]]
     
-      # forward seq_length characters through the net and fetch gradient
+      
       loss, dWxh, dWhh, dWhy, dbh, dby, hprev = lossFun(inputs, targets, hprev)
       smooth_loss = smooth_loss * 0.999 + loss * 0.001
-      #if n % 100 == 0: print ("iter "+str(n)+", loss: "+str(smooth_loss)) # print progress
-      
-      # sample from the model now and then
+     
+      # Every 100 iterations, the results are printed out and compared to.
       if n % 100 == 0:
         sample_ix = sample(hprev, inputs[0], 200)
         txt = ''.join(ix_to_char[ix] for ix in sample_ix)
-        writeout = open("uploads/inputtext.txt","w")
-        writeout.write(txt)
-        writeout.close()
+        if os.path.isdir('uploads') == True:
+            writeout = open("uploads/inputtext.txt","w")
+            writeout.write(txt)
+            writeout.close()
+        else:
+            return 1
       
-      # perform parameter update with Adagrad
       for param, dparam, mem in zip([Wxh, Whh, Why, bh, by], 
                                     [dWxh, dWhh, dWhy, dbh, dby], 
                                     [mWxh, mWhh, mWhy, mbh, mby]):
         mem += dparam * dparam
-        param += -learning_rate * dparam / numpy.sqrt(mem + 1e-8) # adagrad update
+        param += -learning_rate * dparam / numpy.sqrt(mem + 1e-8) 
     
-      p += seq_length # move data pointer
-      n += 1 # iteration counter 
+      p += seq_length 
+      n += 1 
 
+# Obtain a list of all lines generated by the machine.
 def obtain():
     input = open("uploads/inputtext.txt","r")
     contain = input.readlines()

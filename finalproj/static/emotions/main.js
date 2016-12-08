@@ -1,3 +1,4 @@
+// Adapted from colormap.js.
 var cmap = require('colormap'),
     canvas = document.getElementById('canvas'),
     c = canvas.getContext('2d'),

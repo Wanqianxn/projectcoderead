@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
-        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }}
         <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script src="{{ url_for('static', filename='randomcolor.js') }}"></script>
         <link href="{{ url_for('static', filename='genre/genre.css') }}" rel="stylesheet"/>
@@ -16,7 +16,7 @@
     <div id="para"> Feel free to play around with the chart. You can download an image by clicking on the row of icons at the top right hand corner. If you have trouble reading the labels, it might be helpful to zoom in or to toggle off some of the genres by clicking on the legend at the right. </div>
     <div id="myDiv"></div>
   <script>
-    // Color arrays.
+    // Color arrays, to generate random colors of a certain hue representing each genre.
     var tragedyarray = [], bioarray=[], gothicarray=[],scifiarray=[],textbookarray=[],philoarray=[], fantasyarray=[];
     for (var i = 0; i < 15; i++)
     {
@@ -28,7 +28,7 @@
         philoarray.push(randomColor({luminosity: 'dark', hue: 'orange'}));
         fantasyarray.push(randomColor({luminosity: 'dark', hue: 'yellow'}));
     }
-    // Data sets.
+    // Data sets for the 7 genres. X- and y-axis values, as well as size and color of each point. The data has been previously calculated, and is left here as raw values to avoid unncessary calculations in the website.
     var tragedy = 
     {
     x: [9.58946855192589, 9.91955017301038, 11.81171263193735, 10.653846153846153, 10.971179989124524, 10.40078843626807, 11.106518282988871, 9.247702589807853, 11.18759305210918, 11.228267667292057, 9.689525244913339, 12.821917808219178, 11.50489396411093, 10.322962962962963, 9.624434389140271],
@@ -151,7 +151,7 @@
     
     var data = [tragedy,gothic,scifi,bio,philo,textbk,fantasy];
     
-    // Bubble chart formatting options.
+    // Bubble chart formatting options. I.e. Background color, axis titles, etc. 
     var layout = 
     {
     title: 'Distribution of Texts',
@@ -168,7 +168,7 @@
     yaxis: { title: 'Past Tense Ratio'}
     };
 
-    // Generation of actual chart.
+    // Generation of actual plot.
     Plotly.newPlot('myDiv', data, layout);
     
   </script>
