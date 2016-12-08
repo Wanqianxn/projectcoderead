@@ -1,7 +1,4 @@
-﻿#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-import nltk.data, re, os, json, math, numpy
+﻿import nltk.data, re, os, json, math, numpy
 
 from string import punctuation
 from collections import Counter
@@ -57,10 +54,6 @@ def modify():
     
     for line in input:
         line = line.replace("--","\n")
-        line = line.replace("’s","")
-        line = line.replace("’","")
-        line = line.replace("”","")
-        line = line.replace("“","")
         output.write(re.sub("\d+", "", line))
             
     input.close()
@@ -218,10 +211,6 @@ def emodify():
     
     for line in input:
         line = line.replace("--","\n")
-        line = line.replace("’s","")
-        line = line.replace("’","")
-        line = line.replace("”","")
-        line = line.replace("“","")
         output.write(re.sub("\d+", "", line))
             
     input.close()
@@ -372,9 +361,6 @@ def gmodify():
     output = open("uploads/input3.txt", "w")
     for line in input:
         line = line.replace("--","\n")
-        line = line.replace("’","")
-        line = line.replace("”","")
-        line = line.replace("“","")
         output.write(re.sub("\d+", " ", line))
     input.close()
     output.close()
