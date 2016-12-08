@@ -1,3 +1,6 @@
+﻿#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import nltk.data, re, os, json, math, numpy
 
 from string import punctuation
