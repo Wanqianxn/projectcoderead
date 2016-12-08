@@ -3,6 +3,7 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for, R
 from flask_jsglue import JSGlue
 from werkzeug.utils import secure_filename
 from shutil import copyfile
+from celery import Celery
 
 from helpers import *
 
@@ -24,7 +25,33 @@ def after_request(response):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+app.config.update(
+    CELERY_BROKER_URL='redis://localhost:6379',
+    CELERY_RESULT_BACKEND='redis://localhost:6379'
+)
  
+def make_celery(app):
+    celery = Celery(app.import_name, backend=app.config['CELERY_BACKEND'],
+                    broker=app.config['CELERY_BROKER_URL'])
+    celery.conf.update(app.config)
+    TaskBase = celery.Task
+    class ContextTask(TaskBase):
+        abstract = True
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return TaskBase.__call__(self, *args, **kwargs)
+    celery.Task = ContextTask
+    return celery
+    
+celery = make_celery(app)
+
+@celery.task()
+def ping():
+    while True:
+        os.system('ping -t host')
+        time.sleep(5)
+    return 1
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
