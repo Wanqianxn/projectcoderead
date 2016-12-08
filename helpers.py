@@ -4,6 +4,10 @@ from string import punctuation
 from collections import Counter
 from shutil import copyfile
 
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('ptb')
+
 # On accessing any webpage, cleanup all temporary folders created when the user uploaded files.
 def cleanup():
     # Cleanup for uploads folder, used in all 4 apps.
