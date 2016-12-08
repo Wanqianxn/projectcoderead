@@ -1,3 +1,4 @@
 Flask
 nltk
 numpy
+flask_jsglue
