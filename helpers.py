@@ -56,10 +56,6 @@ def modify():
     
     for line in input:
         line = line.replace("--","\n")
-        line = line.replace("’s","")
-        line = line.replace("’","")
-        line = line.replace("”","")
-        line = line.replace("“","")
         output.write(re.sub("\d+", "", line))
             
     input.close()
@@ -209,10 +205,6 @@ def emodify():
     
     for line in input:
         line = line.replace("--","\n")
-        line = line.replace("’s","")
-        line = line.replace("’","")
-        line = line.replace("”","")
-        line = line.replace("“","")
         output.write(re.sub("\d+", "", line))
             
     input.close()
