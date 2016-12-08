@@ -1,0 +1,418 @@
+/* Menu*/
+@font-face {
+    font-family: codropsicons;
+    src: url(codropsicons.woff);
+		   }
+		   
+@font-face {
+    font-family: lanenar;
+    src: url(lanenar.ttf);
+		   }
+		   
+.container > section {
+	padding: 2em;
+	font-family: "codropsicons";
+	font-size: 1.4em;
+	max-width: 50em;
+	margin: 0 auto;
+	text-align: justify;
+}
+
+.container > section p {
+	top: 30px;
+	padding: 0.8em 0.3em;
+	font-family: "lanenar";
+	text-align: justify;
+	opacity: 1;
+	font-weight: 200;
+	line-height: 1.4;
+	background: #000;
+	background-color: rgba(0,0,0,0.2);
+	color: #FFF;
+}
+
+#input {
+	top: 5.5px;
+	background: #000;
+	background-color: rgba(0,0,0,0.2);
+	text-align: center;
+	margin: auto;
+	font-size: 0.9em;
+	text-decoration: none;
+	outline: none;
+	display: block;
+	padding: 0.8em 0.3em;
+	color: #fff;
+	font-family:"lanenar";
+	font-weight: 700;
+}
+
+#choose::-webkit-file-upload-button {
+    font-family: "lanenar";
+}
+
+.container > footnote {
+	font-family: "lanenar";
+	font-size: 10px;
+	float: right;
+	opacity: 1;
+	font-weight: 200;
+	color: #FFF;
+}
+
+.container > header {
+	margin: 0 auto;
+	padding: 2em;
+	text-align: center;
+	background: rgba(0,0,0,0.01);
+}
+
+.container > header h1 {
+	font-size: 2.625em;
+	line-height: 1.3;
+	margin: 0;
+	font-weight: 300;
+}
+
+.container > header span {
+	display: block;
+	font-size: 60%;
+	opacity: 0.7;
+	padding: 0 0 0.6em 0.1em;
+}
+
+.codrops-top {
+	background: rgba(0,0,0, 0.05);
+	text-transform: uppercase;
+	width: 100%;
+	font-size: 0.69em;
+	line-height: 2.2;
+}
+
+.codrops-top a {
+	text-decoration: none;
+	padding: 0 1em;
+	letter-spacing: 0.1em;
+	color: #fff;
+	display: inline-block;
+	right: -980px;
+}
+
+.codrops-top a:hover {
+	background: rgba(255,255,255,0.95);
+	color: #38695C;
+}
+
+.codrops-icon:before {
+	font-family: 'codropsicons';
+	margin: 0 4px;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+.codrops-icon-cont:before {
+	content: "\e002";
+}
+
+.codrops-icon-ack:before {
+	content: "\e001";
+}
+
+.component {
+	position: relative;
+	margin-top: 5em;
+	height: 15em;
+	background: rgba(0,0,0,0.05);
+	font-family: "codropsicons";
+}
+
+.component > h2 {
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	white-space: nowrap;
+	font-family: "codropsicons";
+	letter-spacing: -20px;
+	font-weight: 300;
+	font-size: 10em;
+	opacity: 0.1;
+	cursor: default;
+}
+
+.cn-button {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	z-index: 11;
+	margin-top: -2.25em;
+	margin-left: -2.25em;
+	padding-top: 0em;
+	width: 4.5em;
+	height: 4.5em;
+	border: none;
+	border-radius: 50%;
+	background: none;
+	background-color: #000;
+	color: #FFFFFF;
+	text-align: center;
+	font-family: "codropsicons";
+	font-weight: 700;
+	font-size: 1.5em;
+	text-transform: uppercase;
+	cursor: pointer;
+	-webkit-backface-visibility: hidden;
+	opacity: 1;
+	background-image: url("turner.jpg");
+	border-style: solid;
+}
+
+.csstransforms .cn-wrapper {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	z-index: 10;
+	margin-top: -13em;
+	margin-left: -13.5em;
+	width: 27em;
+	height: 27em;
+	border-radius: 50%;
+	background: transparent;
+	opacity: 0;
+	-webkit-transition: all .3s ease 0.3s;
+	-moz-transition: all .3s ease 0.3s;
+	transition: all .3s ease 0.3s;
+	-webkit-transform: scale(0.1);
+	-ms-transform: scale(0.1);
+	-moz-transform: scale(0.1);
+	transform: scale(0.1);
+	pointer-events: none;
+	overflow: hidden;
+}
+
+/*cover to prevent extra space of anchors from being clickable*/
+.csstransforms .cn-wrapper:after{
+  content:".";
+  display:block;
+  font-family: "codropsicons";
+  font-size:2em;
+  width:6.2em;
+  height:6.2em;
+  position: absolute;
+  left: 50%;
+  margin-left: -3.1em;
+  top:50%;
+  margin-top: -3.1em;
+  border-radius: 50%;
+  z-index:10;
+  color: transparent;
+}
+
+.csstransforms .opened-nav {
+	border-radius: 50%;
+	opacity: 1;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	transition: all .3s ease;
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	pointer-events: auto;
+}
+
+.csstransforms .cn-wrapper li {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	overflow: hidden;
+	margin-top: -1.3em;
+	margin-left: -10em;
+	width: 10em;
+	height: 10em;
+	font-family: "codropsicons";
+	font-size: 1.5em;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	transition: all .3s ease;
+	-webkit-transform: rotate(0deg) skew(45deg);
+	-moz-transform: rotate(0deg) skew(45deg);
+	-ms-transform: rotate(0deg) skew(45deg);
+	transform: rotate(0deg) skew(45deg);
+	-webkit-transform-origin: 100% 100%;
+	-moz-transform-origin: 100% 100%;
+	transform-origin: 100% 100%;
+	pointer-events: none;
+}
+
+.csstransforms .cn-wrapper li a {
+	position: absolute;
+	right: -7.25em;
+	bottom: -7.25em;
+	display: block;
+	width: 14.5em;
+	height: 14.5em;
+	border-radius: 90%;
+	background: #38695C;
+	background: -webkit-radial-gradient(transparent 70%, #38695C 32%);
+	background: -moz-radial-gradient(transparent 70%, #38695C 32%);
+	background: radial-gradient(transparent 70%, #38695C 32%);
+	color: #000;
+	text-align: center;
+	text-decoration: none;
+	font-family: "codropsicons";
+	font-size: 1.2em;
+	line-height: 5;
+	-webkit-transform: skew(-45deg) rotate(-67.5deg) scale(1);
+	-moz-transform: skew(-45deg) rotate(-67.5deg) scale(1);
+	-ms-transform: skew(-45deg) rotate(-67.5deg) scale(1);
+	transform: skew(-45deg) rotate(-67.5deg) scale(1);
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	pointer-events: auto;
+}
+
+.csstransforms .cn-wrapper li a span {
+	position: relative;
+	top: 1.8em;
+	display: block;
+	font-family: "codropsicons";
+	font-size: .5em;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.csstransforms .cn-wrapper li a:hover,
+.csstransforms .cn-wrapper li a:active,
+.csstransforms .cn-wrapper li a:focus {
+	background: -webkit-radial-gradient(transparent 30%, #38695C 32%);
+	background: -moz-radial-gradient(transparent 30%, #38695C 32%);
+	background: radial-gradient(transparent 30%, #38695C 32%);
+	color: #FFF;
+}
+.csstransforms .cn-wrapper li a:focus {
+    position: fixed; /* fix the displacement bug in webkit browsers when using tab key */
+}
+
+.csstransforms .opened-nav li {
+	-webkit-transition: all .3s ease .3s;
+	-moz-transition: all .3s ease .3s;
+	transition: all .3s ease .3s;
+}
+
+.csstransforms .opened-nav li:first-child {
+	-webkit-transform: rotate(0deg) skew(45deg);
+	-moz-transform: rotate(0deg) skew(45deg);
+	-ms-transform: rotate(0deg) skew(45deg);
+	transform: rotate(0deg) skew(45deg);
+}
+
+.csstransforms .opened-nav li:nth-child(2) {
+	-webkit-transform: rotate(45deg) skew(45deg);
+	-moz-transform: rotate(45deg) skew(45deg);
+	-ms-transform: rotate(45deg) skew(45deg);
+	transform: rotate(45deg) skew(45deg);
+}
+
+.csstransforms .opened-nav  li:nth-child(3) {
+	-webkit-transform: rotate(90deg) skew(45deg);
+	-moz-transform: rotate(90deg) skew(45deg);
+	-ms-transform: rotate(90deg) skew(45deg);
+	transform: rotate(90deg) skew(45deg);
+}
+
+.csstransforms .opened-nav li:nth-child(4) {
+	-webkit-transform: rotate(135deg) skew(45deg);
+	-moz-transform: rotate(135deg) skew(45deg);
+	-ms-transform: rotate(135deg) skew(45deg);
+	transform: rotate(135deg) skew(45deg);
+}
+
+.no-csstransforms .cn-wrapper {
+	overflow: hidden;
+	margin: 10em auto;
+	padding: .5em;
+	text-align: center;
+}
+
+.no-csstransforms .cn-wrapper ul {
+	display: inline-block;
+}
+
+.no-csstransforms .cn-wrapper li {
+	float: left;
+	width: 5em;
+	height: 5em;
+	background-color: #fff;
+	text-align: center;
+	font-size: 1em;
+	line-height: 5em;
+}
+
+.no-csstransforms .cn-wrapper li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: inherit;
+	text-decoration: none;
+}
+
+.no-csstransforms .cn-wrapper li a:hover,
+.no-csstransforms .cn-wrapper li a:active,
+.no-csstransforms .cn-wrapper li a:focus {
+	background-color: #f8f8f8;
+}
+
+.no-csstransforms .cn-wrapper li.active a{
+	background-color: #6F325C;
+	color: #fff;
+}
+
+.no-csstransforms .cn-button {
+	display: none;
+}
+
+@media only screen and (max-width: 620px) {
+	.no-csstransforms li {
+		width: 4em;
+		height: 4em;
+		line-height: 4em;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.no-ccstransforms .cn-wrapper {
+		padding: .5em;
+	}
+
+	.no-csstransforms .cn-wrapper li {
+		width: 4em;
+		height: 4em;
+		font-size: .9em;
+		line-height: 4em;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.csstransforms .cn-wrapper {
+		font-size: .68em;
+	}
+
+	.cn-button {
+		font-size: 1em;
+	}
+}
+
+@media only screen and (max-width:420px) {
+	.no-csstransforms .cn-wrapper li {
+		width: 100%;
+		height: 3em;
+		line-height: 3em;
+	}
+}

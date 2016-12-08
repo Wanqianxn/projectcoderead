@@ -1,0 +1,29 @@
+Stopwords from: http://www.lextek.com/manuals/onix/stopwords1.html
+
+Menu:
+Created by Codrops: http://www.codrops.com
+
+Text analysis methodology:
+http://noduslabs.com/cases/textexture-non-linear-reading-machine/
+http://sigmajs.org/
+https://github.com/davidmerfield/randomColor
+
+
+Machine Learning:
+https://medium.com/@ageitgey/machine-learning-is-fun-part-2-a26a10b68df3
+http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+https://gist.github.com/karpathy/d4dee566867f8291f086
+
+Emotion:
+Inspiration:
+http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
+http://dillonbaker.com/#/spectrum/
+https://litlab.stanford.edu/LiteraryLabPamphlet13.pdf
+
+https://github.com/bpostlethwaite/colormap
+https://github.com/substack/node-browserify
+
+Genre:
+https://github.com/plotly/plotly.js
+https://litlab.stanford.edu/LiteraryLabPamphlet10.pdf
+http://www.jlcl.org/2009_Heft1/JLCL24(1).pdf

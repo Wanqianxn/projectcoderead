@@ -1,0 +1,152 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="{{ url_for('static', filename='sigmajs/sigma.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='sigmajs/sigma.export.js') }}"></script>  
+        <script src="{{ url_for('static', filename='sigmajs/sigma.settings.js') }}"></script>  
+        <script src="{{ url_for('static', filename='sigmajs/sigma.parsers.json.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='sigmajs/sigma.layout.forceAtlas2.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='sigmajs/sigma.canvas.edges.curve.js') }}"></script>
+        <script src="{{ url_for('static', filename='sigmajs/sigma.misc.bindDOMEvents.js') }}"></script>
+        <script src="{{ url_for('static', filename='sigmajs/sigma.misc.bindEvents.js') }}"></script>
+        <script src="{{ url_for('static', filename='sigmajs/sigma.renderers.snapshot.js') }}"></script>
+        <script src="{{ url_for('static', filename='randomcolor.js') }}"></script>
+        <link href="{{ url_for('static', filename='sigmajs/sigma.css') }}" rel="stylesheet"/>
+        <title> Dante's Inferno </title>
+    </head>
+    <body>
+    <h1 id="name">Dante's <i>Inferno</i></h1>
+    <div id="para"> Hovering your mouse over any word will allow you to see all the other words in the text that this word is connected to.</div>
+    <div id="para"> You can drag the graph around, or scroll to zoom in and out. </div>
+    <div class="buttons">
+					<a id="pause">Pause Animation</a><br>
+					<a id="resume">Resume Animation</a>
+	</div>
+	<br>
+	<div id="para"> To download the graph, pause the animation first and drag/zoom to your desired view. Click the button below and wait for a few seconds. </div>
+	<div class="buttons">
+					<a id="download">Download Graph</a><br>
+					<a id="back" href="/map">Back to Map</a>
+	</div>
+    <div id="graph"></div>
+    <script>
+    // Text title.
+    var elem = document.getElementById("name");
+    function changecolour() {
+        elem.style.color = randomColor({luminosity: 'bright', hue: 'red'});
+    }
+    window.setInterval(changecolour, 1000);
+    // Buttons.
+    var pause = document.getElementById("pause");
+    var resume = document.getElementById("resume");
+    var download = document.getElementById("download");
+    // Graph.
+    sigma.classes.graph.addMethod('neighbors', function(nodeId) {
+    var k,
+        neighbors = {},
+        index = this.allNeighborsIndex[nodeId] || {};
+    for (k in index)
+    {
+      neighbors[k] = this.nodesIndex[k];
+    }
+    return neighbors;
+  });
+    sigma.parsers.json("{{ url_for('static', filename='jsonobjects/inferno.json') }}", {
+    container: 'graph',
+    renderer: {
+      container: document.getElementById('graph'),
+      type: 'canvas'
+    },
+    settings: {
+    defaultEdgeType: "curve",
+    maxNodeSize: 20,
+    minNodeSize: 1,
+    minEdgeSize: 0.5,
+    maxEdgeSize: 5,
+    labelThreshold : 8,
+    defaultLabelColor: "#FFFFFF",
+    defaultLabelSize: 20,
+    font: "raleway",
+    hideEdgesOnMove: true
+    }
+    },
+    function(s) {
+    var i,j,
+    nodes = s.graph.nodes(),
+    edges = s.graph.edges(),
+    len = nodes.length,
+    lene = edges.length;
+
+    for (i = 0; i < len; i++)
+    {
+        nodes[i].x = Math.random();
+        nodes[i].y = Math.random();
+        nodes[i].color = randomColor({luminosity: 'light', hue: 'monochrome'});
+    }
+    for (j = 0; j < lene; j ++)
+    {
+        edges[j].type = 'curve';
+        edges[j].color = randomColor({luminosity: 'dark', hue: 'red'});
+    }
+
+    s.bind('overNode', function(e) {
+        var nodeId = e.data.node.id;
+        var toKeep = s.graph.neighbors(nodeId);
+        toKeep[nodeId] = e.data.node;
+        for (i = 0; i < len; i++)
+        {
+          if (!toKeep[nodes[i].id])
+            nodes[i].hidden = true;
+        }
+        for (j = 0; j < lene; j++)
+        {
+          if (!toKeep[edges[j].source] || !toKeep[edges[j].target])
+            edges[j].hidden = true;
+        }
+        s.settings('labelThreshold', 0);
+        s.refresh();
+      });
+    s.bind('outNode', function(e) {
+        s.settings('labelThreshold', 8);
+        s.graph.nodes().forEach(function(n) {
+          n.hidden = false;
+        });
+        s.graph.edges().forEach(function(e) {
+          e.hidden = false;
+        });
+        s.refresh();
+      });
+    /*var mouseO = function(){
+      // Stuff.
+    };*/
+    //document.addEventListener("mousemove", mouseO);
+    
+    var c = s.camera;
+    c.goTo({
+      ratio: 2* c.ratio * c.settings('zoomingRatio')
+    });
+    sigma.misc.animation.camera(c,{
+      ratio: c.ratio / (2.5*c.settings('zoomingRatio'))}, {
+      duration: 800
+    });
+    s.refresh();
+    s.startForceAtlas2({slowDown : 200, barnesHutOptimize: true});
+    pause.addEventListener("click", function(){
+        s.stopForceAtlas2();
+        pause.style.opacity = 0.6;
+        resume.style.opacity = 1;
+    });
+    resume.addEventListener("click", function(){
+        s.startForceAtlas2({slowDown : 200, barnesHutOptimize: true});
+        pause.style.opacity = 1;
+        resume.style.opacity = 0.6;
+    });
+    download.addEventListener("click", function(){
+        s.renderers[0].snapshot({download: 'true', format: 'jpg', background: 'black', filename: 'inferno.jpg', labels: false});
+    });
+  });
+    </script>
+    </body>
