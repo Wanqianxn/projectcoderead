@@ -1,8 +1,6 @@
 Flask
 nltk
 numpy
-re
-os
 json
 math
 string
