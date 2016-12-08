@@ -244,5 +244,8 @@ def writeupdate():
 def writestory():
     name = request.args.get('s')
     write(name)
+
+if __name__ == '__main__':
+    app.run()
     return jsonify(result=0)
         
