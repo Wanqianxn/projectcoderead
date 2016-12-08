@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
-        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }}
         <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script src="{{ url_for('static', filename='randomcolor.js') }}"></script>
         <link href="{{ url_for('static', filename='emotions/emotion.css') }}" rel="stylesheet"/>
@@ -14,6 +14,7 @@
     <div id="para"> Anger: 358 | Anticipation: 770 | Joy: 912 | Disgust: 426 | Sadness: 411 | Fear: 693 </div>
     <br>
     <canvas id="canvas"></canvas>
+    <!-- Bundle.js is the compiled JavaScript file that generates the colormap. Canvas is the div for map itself. -->
     <script src="{{ url_for('static', filename='emotions/genesis/bundle.js') }}"></script>
     <div id="para"> Download the colour maps by clicking the button below. </div>
 	<div class="buttons">
@@ -21,6 +22,7 @@
 					<a id="back" href="/emotion">Back to Emotion</a>
 	</div>
 	<script>
+	// Onclick function to download an image.
 	    document.getElementById('download').addEventListener('click', function() {
                 this.href = document.getElementById('canvas').toDataURL();
                 this.download = "emotiongenesis.jpg";

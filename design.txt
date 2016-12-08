@@ -1,0 +1,53 @@
+Each of the four mini-applications in the website involves some form of visualization, and as such, this project as a whole makes use of various different types of packages and libraries.
+
+Important design concepts:
+    Website/Programming Language: I stuck to the Flask framework, which serves the purpose of the website. For the visualizations, I wanted them in JavaScript instead of Python so that it would be a lot easier to code them to be responsive to user interactivity. SQL was not necessary at all throughout the project and therefore not used.
+    Color: Because this was primarily a data visualization website, color was important. I used randomcolor.js, a good script to generate attractive hues, for a lot of the text's and visuals' colors.
+    Interactivity: I wanted this website to be more than just a browsing experience: it would be cool to get users to upload their own content and play around with the sections. As such, I implemented a interactive portion for each mini-application. All of the charts were also downloadable as images.
+    
+Packages, libraries and codes adapted:
+
+Map:
+    sigma.js was used to visualize the graphs. I chose this package because it was not only beautiful but flexible as well, and allows for a great degree of customization. 
+Emotion:
+    For the colormap, I chose a different JavaScript package, known as colormap. This package was different in that it requires the user to use "browserify", which is another JavaScript package that compresses multiple files into one, to create one combined JavaScript file that is able to generate the map. This made the HTML page a lot cleaner.
+Genre:
+    plotly.js was the library I chose for this section, as they had beautiful bubble charts and a great degree of features as well: i.e. zoom, hide/show plots, downloading plots as images etc. The code was also easily adaptable and rather flexible.
+
+Create:
+    For the machine learning portion, I adapted RNN code found on Github. Create was the trickiest part as the RNN code was in Python and yet we had to get it to run and update constantly on a HTML page, which proved to be slightly tricky.
+    
+Full list of resources (including literature research):
+
+OVERALL
+Stopwords from: http://www.lextek.com/manuals/onix/stopwords1.html
+E-books from: https://www.gutenberg.org/
+NLTK packages
+
+MENU:
+Created by Codrops: http://www.codrops.com
+
+MAP:
+http://noduslabs.com/cases/textexture-non-linear-reading-machine/
+http://sigmajs.org/
+https://github.com/davidmerfield/randomColor
+
+EMOTION:
+http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
+http://dillonbaker.com/#/spectrum/
+https://litlab.stanford.edu/LiteraryLabPamphlet13.pdf
+https://github.com/bpostlethwaite/colormap
+https://github.com/substack/node-browserify
+
+GENRE:
+https://github.com/plotly/plotly.js
+https://litlab.stanford.edu/LiteraryLabPamphlet10.pdf
+http://www.jlcl.org/2009_Heft1/JLCL24(1).pdf
+
+CREATE:
+https://medium.com/@ageitgey/machine-learning-is-fun-part-2-a26a10b68df3
+http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+https://gist.github.com/karpathy/d4dee566867f8291f086
+
+
+

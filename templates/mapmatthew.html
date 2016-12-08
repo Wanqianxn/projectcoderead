@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
-        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }} 
         <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script src="{{ url_for('static', filename='sigmajs/sigma.min.js') }}"></script>
         <script src="{{ url_for('static', filename='sigmajs/sigma.export.js') }}"></script>  
@@ -119,10 +119,6 @@
         });
         s.refresh();
       });
-    /*var mouseO = function(){
-      // Stuff.
-    };*/
-    //document.addEventListener("mousemove", mouseO);
     
     var c = s.camera;
     c.goTo({

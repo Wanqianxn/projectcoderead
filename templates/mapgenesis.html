@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
-        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }}
         <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script src="{{ url_for('static', filename='sigmajs/sigma.min.js') }}"></script>
         <script src="{{ url_for('static', filename='sigmajs/sigma.export.js') }}"></script>  
@@ -43,7 +43,8 @@
     var pause = document.getElementById("pause");
     var resume = document.getElementById("resume");
     var download = document.getElementById("download");
-    // Graph.
+    
+    // To allow for recognition of every node's neighbors. 
     sigma.classes.graph.addMethod('neighbors', function(nodeId) {
     var k,
         neighbors = {},
@@ -54,6 +55,7 @@
     }
     return neighbors;
   });
+  // Actual graph generated.
     sigma.parsers.json("{{ url_for('static', filename='jsonobjects/genesis.json') }}", {
     container: 'graph',
     renderer: {
@@ -79,7 +81,7 @@
     edges = s.graph.edges(),
     len = nodes.length,
     lene = edges.length;
-
+    // Plot color of nodes and edges. 
     for (i = 0; i < len; i++)
     {
         nodes[i].x = Math.random();
@@ -91,7 +93,8 @@
         edges[j].type = 'curve';
         edges[j].color = randomColor({luminosity: 'dark', hue: 'yellow'});
     }
-
+   
+   // On mouseover of a node, only neighbours are shown, all other nodes are hidden.
     s.bind('overNode', function(e) {
         var nodeId = e.data.node.id;
         var toKeep = s.graph.neighbors(nodeId);
@@ -119,11 +122,8 @@
         });
         s.refresh();
       });
-    /*var mouseO = function(){
-      // Stuff.
-    };*/
-    //document.addEventListener("mousemove", mouseO);
     
+    // Initial zoom effect on first loading the graph. 
     var c = s.camera;
     c.goTo({
       ratio: 2* c.ratio * c.settings('zoomingRatio')
@@ -132,7 +132,10 @@
       ratio: c.ratio / (2.5*c.settings('zoomingRatio'))}, {
       duration: 800
     });
+    
     s.refresh();
+    
+    // Graph "animation", which is really an optimization formula of node/edge placement.
     s.startForceAtlas2({slowDown : 200, barnesHutOptimize: true});
     pause.addEventListener("click", function(){
         s.stopForceAtlas2();
@@ -144,6 +147,8 @@
         pause.style.opacity = 1;
         resume.style.opacity = 0.6;
     });
+    
+    // Download as image onclick of button.
     download.addEventListener("click", function(){
         s.renderers[0].snapshot({download: 'true', format: 'jpg', background: 'black', filename: 'genesis.jpg', labels: false});
     });

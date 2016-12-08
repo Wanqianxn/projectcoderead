@@ -1,0 +1,13 @@
+General Overview:
+
+This project is a Flask-based web application, involving data visualization and machine learning applied to digital humanities. The website contains the usual index, acknowledgment and contact information pages, as well as the main content: 4 separate "mini-applications/sections", each involving a separate type of visualization/analysis. Each "mini-application" also includes an interactive component, whereby users are allowed to upload their own texts to be processed. Detailed methodologies as well as instructions are explained carefully as well. In addition, many of the charts and graphs can be downloaded as images from the various sections.
+
+Implementation:
+
+Dependencies are found in the "requirements.txt" and should all be installed first. In addition, this application uses several packages from NLTK, whidh should be downloaded by running nltk.download() on a separate python script. (I.e. Create random.py, write "import nltk \n nltk.download()" and then run "python random.py" on the terminal. An interface should pop up.) The additional NLTK packages to be downloaded are: punkt, ptb, averaged_perceptron_tagger. Note that this is separate from merely doing pip install nltk. Afterwards, to get the application going, execute "flask run" on the CS50 IDE terminal.
+
+    *** IMPORTANT: There is an empty folder named "uploads" that is necessary for this website to run. However, since Github does not accept empty directories, I have placed a .gitignore inside. This file should be removed upon implementation. *** 
+
+Usage:
+
+As mentioned earlier, each mini-application has 2 components: some pre-generated images/visuals for the user to browse through, as well as an interactive component to test out these components on any text. The detailed instructions for uploading files and such are explained on the website. Please note that clicking on the huge words "Project CodeRead" on every page will bring you back to the index page, since this is not too obvious. It is advised that the user looks through the website before reading the code in detailed so as to get a better idea of and appreciation for the application. 
