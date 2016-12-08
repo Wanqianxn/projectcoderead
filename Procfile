@@ -1,2 +1,2 @@
-web: python finalproj/application.py
+web: python application.py
 
