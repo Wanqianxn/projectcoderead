@@ -3,11 +3,9 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for, s
 from flask_jsglue import JSGlue
 from werkzeug.utils import secure_filename
 from shutil import copyfile
-from flask_session import Session
 from tempfile import gettempdir
 from threading import Thread
 
-from cs50 import SQL
 from helpers import *
 
 UPLOAD_FOLDER = 'uploads'
@@ -25,16 +23,11 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# configure CS50 Library to use SQLite database
-# db = SQL("sqlite:///mashup.db")
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
- 
-app.config["SESSION_FILE_DIR"] = gettempdir()
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app) 
+  
          
 @app.route("/")
 def index():
