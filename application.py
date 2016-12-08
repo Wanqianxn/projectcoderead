@@ -3,8 +3,6 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for, s
 from flask_jsglue import JSGlue
 from werkzeug.utils import secure_filename
 from shutil import copyfile
-from tempfile import gettempdir
-from threading import Thread
 
 from helpers import *
 
@@ -244,8 +242,8 @@ def writeupdate():
 def writestory():
     name = request.args.get('s')
     write(name)
+    return jsonify(result=0)
 
 if __name__ == '__main__':
     app.run()
-    return jsonify(result=0)
         
