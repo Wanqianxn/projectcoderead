@@ -1,0 +1,30 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="{{ url_for('static', filename='randomcolor.js') }}"></script>
+        <link href="{{ url_for('static', filename='emotions/emotion.css') }}" rel="stylesheet"/>
+        <title> Colormap of Homer's Odyssey </title>
+    </head>
+    <body>
+    <h1 id="name">Homer's <i>Odyssey</i></h1>
+    <div id="para"> Number of occurences found: </div>
+    <div id="para"> Anger: 1582 | Anticipation: 2726 | Joy: 2130 | Disgust: 1036 | Sadness: 1859 | Fear: 2088 </div>
+    <br>
+    <canvas id="canvas"></canvas>
+    <script src="{{ url_for('static', filename='emotions/odyssey/bundle.js') }}"></script>
+    <div id="para"> Download the colour maps by clicking the button below. </div>
+	<div class="buttons">
+					<a id="download">Download Graph</a>
+					<a id="back" href="/emotion">Back to Emotion</a>
+	</div>
+	<script>
+	    document.getElementById('download').addEventListener('click', function() {
+                this.href = document.getElementById('canvas').toDataURL();
+                this.download = "emotionodyssey.jpg";
+        }, false);
+	</script>
+</body>
+</html>

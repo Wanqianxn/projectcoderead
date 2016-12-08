@@ -1,0 +1,43 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="{{ url_for('static', filename='randomcolor.js') }}"></script>
+        <link href="{{ url_for('static', filename='create/custom.css') }}" rel="stylesheet"/>
+        <title> Text Generation from Bible: Genesis </title>
+        <script type=text/javascript>
+            //$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        </script>
+    </head>
+    <body>
+    <h1 id="name"> Bible: Genesis </h1>
+    <div id="para"> Every half a second, the computer will generate a line of text, whereby every successive line is built on every line before that. If you leave this page running long enough, you might start to see coherent text after a while. </div>
+    <div id="heroin"><span id="morphine"> </span></div>
+    <br>
+    <br>
+    <div class="buttons">
+			<a id="back" href="/create">Back to Create</a>
+	</div>
+    <script>
+    var elem = document.getElementById("name");
+    var tramadol = document.getElementById("heroin");
+    function changecolour() {
+        elem.style.color = randomColor({luminosity: 'bright', hue: 'yellow'});
+        tramadol.style["border-color"] = randomColor({luminosity: 'bright', hue: 'yellow'});
+    }
+    window.setInterval(changecolour, 1000);
+    var getit = $.getJSON('/writestory', {
+        s: "static/create/genesis.txt"
+      });
+      
+    setInterval(function(){
+   $.getJSON('/writeupdate', 
+        function(data) {
+        $("#morphine").text(data.result);
+      });
+    }, 500);
+	</script>
+</body>
+</html>

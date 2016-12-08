@@ -1,0 +1,30 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+        {{ JSGlue.include() }} <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="{{ url_for('static', filename='randomcolor.js') }}"></script>
+        <link href="{{ url_for('static', filename='emotions/emotion.css') }}" rel="stylesheet"/>
+        <title> Colormap of Dante's Inferno </title>
+    </head>
+    <body>
+    <h1 id="name">Dante's <i>Inferno</i></h1>
+    <div id="para"> Number of occurences found: </div>
+    <div id="para"> Anger: 853 | Anticipation: 794 | Joy: 682 | Disgust: 615 | Sadness: 1011 | Fear: 1142 </div>
+    <br>
+    <canvas id="canvas"></canvas>
+    <script src="{{ url_for('static', filename='emotions/inferno/bundle.js') }}"></script>
+    <div id="para"> Download the colour maps by clicking the button below. </div>
+	<div class="buttons">
+					<a id="download">Download Graph</a>
+					<a id="back" href="/emotion">Back to Emotion</a>
+	</div>
+	<script>
+	    document.getElementById('download').addEventListener('click', function() {
+                this.href = document.getElementById('canvas').toDataURL();
+                this.download = "emotioninferno.jpg";
+        }, false);
+	</script>
+</body>
+</html>

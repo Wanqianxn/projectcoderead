@@ -1,0 +1,67 @@
+@font-face {
+    font-family: codropsicons;
+    src: url(codropsicons.woff);
+		   }
+		   
+@font-face {
+    font-family: lanenar;
+    src: url(lanenar.ttf);
+		   }
+		   
+body {
+      background: #000;
+}
+
+#graph {
+      top: 0;
+      bottom: 0;
+      left: 300;
+      right: 0;
+      position: absolute;
+  }
+  
+#name {
+      font-family: "lanenar";
+      text-shadow: 2px 2px 2px #FFFFFF;
+      -webkit-transition: all 1s ease-in-out;
+      -moz-transition: all 1s ease-in-out;
+      -o-transition: all 1s ease-in-out;
+      -ms-transition: all 1s ease-in-out;
+      transition: all 1s ease-in-out;
+}
+
+#para {
+	top: 30px;
+	padding: 0.8em 0.3em;
+	font-family: "lanenar";
+	text-align: justify;
+	opacity: 1;
+	font-weight: 200;
+	line-height: 1.4;
+	color: #FFF;
+	width: 250px;
+}
+
+.buttons {
+	padding-top: 1em;
+	font-size: 0.9em;
+}
+
+.buttons a {
+	text-decoration: none;
+	outline: none;
+	display: inline-block;
+	margin: 0.5em;
+	padding: 0.7em 1.1em;
+	border: 3px solid #fff;
+	color: #fff;
+	font-family:"lanenar";
+	font-weight: 700;
+	width: 115px;
+}
+
+.buttons a:hover,
+.buttons a.current-demo,
+.buttons a.current-demo:hover {
+	opacity: 0.6;
+}
