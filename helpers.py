@@ -22,10 +22,10 @@ def cleanup():
     for filename in os.listdir('static/emotions'):
         if filename.startswith("bundle"):
             os.remove("static/emotions/"+filename)
-    for filename in os.listdir('static/emotions/node_modules/colormap'):
+    for filename in os.listdir('static/emotions/nodemodules/colormap'):
         if filename.startswith("colorScale"):
-            os.remove("static/emotions/node_modules/colormap/"+filename)
-    copyfile('static/emotions/tcolorScales.js','static/emotions/node_modules/colormap/colorScales.js')
+            os.remove("static/emotions/nodemodules/colormap/"+filename)
+    copyfile('static/emotions/tcolorScales.js','static/emotions/nodemodules/colormap/colorScales.js')
 
 # Modifies uploaded file for Map for proper processing.
 def modify():
@@ -294,7 +294,7 @@ def spectrum():
         
         # Creation of JSON structure containing all the emotional words, as well as their position in the text (i.e. ratio of current count to total word count.)
         input = open("uploads/input"+emotion+".txt","r")
-        output = open("static/emotions/node_modules/colormap/colorScales.js","a")
+        output = open("static/emotions/nodemodules/colormap/colorScales.js","a")
         emot = []
         countw = 0
         prev = 0
@@ -332,7 +332,7 @@ def spectrum():
         occurences.append(int(((len(emot)-2)/3)))
     
     # Copy JSON-like object (necessary for Javascript visualization) to a file
-    input = open("static/emotions/node_modules/colormap/colorScales.js","a")
+    input = open("static/emotions/nodemodules/colormap/colorScales.js","a")
     input.write("};")
     input.close()
     

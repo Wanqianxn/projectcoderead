@@ -97,6 +97,7 @@ def map():
                 os.remove("uploads/"+filename)
             return render_template("map.html", toolong = True)
         # These functions help generate the actual graph.
+        ping()
         modify()
         network()
         return render_template("mapcreate.html")
