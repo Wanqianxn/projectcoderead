@@ -4,6 +4,7 @@ from flask_jsglue import JSGlue
 from werkzeug.utils import secure_filename
 from shutil import copyfile
 from celery import Celery
+from redis import Redis
 
 from helpers import *
 
@@ -26,6 +27,11 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+redis_url = os.getenv('REDISTOGO_URL')
+
+urlparse.uses_netloc.append('redis')
+url = urlparse.urlparse(redis_url)
+conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
 
 app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379',
