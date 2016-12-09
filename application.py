@@ -258,7 +258,7 @@ def createemma():
 @app.route('/writeupdate')
 def writeupdate():
     d = request.args.get('d')
-    if app.jinja_env.globals['thedata'] = []:
+    if app.jinja_env.globals['thedata'] == []:
         thedata = fixed(d)
         hprev = numpy.zeros((100,1))
         thedata.append(hprev)
