@@ -311,8 +311,10 @@ def spectrum():
         for line in input:
             for word in line.split():
                 countw += 1
+                print("count ", countw)
                 if word == "1":
                     divider = (0.007*math.log(total))*prev + (1-(0.007*math.log(total)))*(countw/total)
+                    print("divider ", countw)
                     emot.append({"index": divider, "rgb": [0,0,0]})
                     emot.append({"index": countw/total, "rgb": rainbow[emotion]})
                     emot.append({"index": ((2*(countw/total)) - divider), "rgb": [0,0,0]})
@@ -334,10 +336,10 @@ def spectrum():
     input = open("static/emotions/node_modules/colormap/colorScales.js","a")
     input.write("};")
     input.close()
-    input = open("static/emotions/node_modules/colormap/colorScales.js","r")
-    for line in input:
-        print(line)
-    input.close()
+    #input = open("static/emotions/node_modules/colormap/colorScales.js","r")
+    #for line in input:
+    #    print(line)
+    #input.close()
     # Creation of bundle.js, which serves as the actual JS file for colormap generation.
     os.system("browserify static/emotions/main.js > static/emotions/bundle.js")
     return occurences
