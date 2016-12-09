@@ -151,8 +151,6 @@ def write(name):
 @app.route("/")
 def index():
     cleanup()
-    asparagus = pinger.delay()
-    print(asparagus)
     return render_template("index.html")
     
 @app.route("/acknowledgments")
