@@ -238,9 +238,8 @@ def create():
 def creategenesis():
     thedata = fixed("static/create/genesis.txt")
     hprev = numpy.zeros((100,1))
-    print(thedata[15])
-    print("yes")
-    name = 'static/create/genesis.txt'
+    name = "static/create/genesis.txt"
+    print(1, name)
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
@@ -262,6 +261,7 @@ def createemma():
 # Jsonify acts as the medium through which Javascript AJAX requests are sent to the Python server. Both the functions below are for the Create section.
 @app.route('/writeupdate')
 def writeupdate():
+    print(2, name)
     thedata[10],thedata[11],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16],thedata[17],hprev,txt = iteration(name,thedata[10],thedata[11],thedata[1],hprev,thedata[3],thedata[17],thedata[4],thedata[2],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16])
     return jsonify(result=txt)
     
