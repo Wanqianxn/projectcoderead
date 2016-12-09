@@ -10,6 +10,7 @@ from worker import conn
 
 
 from helpers import *
+from separate import *
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = set(['txt'])
@@ -29,9 +30,6 @@ def after_request(response):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
-def hate(a):
-    return 2*a
 
 currentiter =''
 q = Queue(connection=conn)
