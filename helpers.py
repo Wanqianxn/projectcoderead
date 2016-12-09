@@ -34,7 +34,8 @@ def modify():
 
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     data = input.read()
-    output.write('\n-----\n'.join(tokenizer.tokenize(data.encode('ascii'))))
+    data = ''.join(filter(lambda x: ord(x)<128, data))
+    output.write('\n-----\n'.join(tokenizer.tokenize(data)))
 
     input.close()
     output.close()
@@ -186,6 +187,7 @@ def emodify():
     output = open("uploads/input1.txt", "w")
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     data = input.read()
+    data = ''.join(filter(lambda x: ord(x)<128, data))
     output.write('\n-----\n'.join(tokenizer.tokenize(data.encode('ascii'))))
     input.close()
     output.close()
