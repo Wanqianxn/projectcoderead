@@ -271,8 +271,9 @@ def create():
 @app.route("/create/genesis")
 def creategenesis():
     result = q.enqueue(write, 'static/create/genesis.txt')
+    time.sleep(10)
     for i in range(100):
-        print(result.result.i)
+        print(result.result)
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
