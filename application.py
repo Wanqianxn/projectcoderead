@@ -3,8 +3,11 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for, R
 from flask_jsglue import JSGlue
 from werkzeug.utils import secure_filename
 from shutil import copyfile
-from celery import Celery
+#from celery import Celery
 from redis import Redis
+from rq import Queue
+from worker import conn
+
 
 from helpers import *
 
@@ -16,8 +19,6 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 JSGlue(app)
 
-currentiter =''
-
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -28,7 +29,15 @@ def after_request(response):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-           
+
+def hate(a):
+    return 2*a
+
+currentiter =''
+q = Queue(connection=conn)
+result = q.enqueue(hate, 10)
+
+'''           
 redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 app.config.update(
     CELERY_BROKER_URL=redis_url,
@@ -37,6 +46,7 @@ app.config.update(
     CELERY_REDIS_MAX_CONNECTIONS = 9
 )
  
+
 def make_celery(app):
     celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'],
                     broker=app.config['CELERY_BROKER_URL'])
@@ -49,7 +59,7 @@ def make_celery(app):
                 return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
-    
+
 celery = make_celery(app)
 
 @celery.task()
@@ -57,7 +67,7 @@ def write(name):
     currentiter = name
     print("NAME")
     return name
-
+'''
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
@@ -65,6 +75,7 @@ def write(name):
 @app.route("/")
 def index():
     cleanup()
+    print(result)
     return render_template("index.html")
     
 @app.route("/acknowledgments")

@@ -1,2 +1,2 @@
 web: python application.py
-worker: celery -A application.celery worker
+worker: python worker.py
