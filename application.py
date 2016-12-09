@@ -271,7 +271,7 @@ def create():
 @app.route("/create/genesis")
 def creategenesis():
     result = q.enqueue(write, 'static/create/genesis.txt')
-    time.sleep(1)
+    time.sleep(5)
     print(result.result)
     return render_template("creategenesis.html")
     
@@ -295,7 +295,7 @@ def createemma():
 @app.route('/writeupdate')
 def writeupdate():
     print(currentiter + " AAA")
-    return jsonify(result=currentiter)
+    return jsonify(result=3)
     
     
 if __name__ == '__main__':

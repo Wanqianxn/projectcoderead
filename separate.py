@@ -1,3 +1,5 @@
+import nltk.data, re, os, json, math, numpy, string
+
 def write(name):
     data = open(name, 'r').read()
     chars = list(set(data))
