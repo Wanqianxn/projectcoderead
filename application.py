@@ -26,6 +26,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+os.system("nohup redis-server &")
 app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379',
     CELERY_RESULT_BACKEND='redis://localhost:6379'
@@ -53,7 +54,6 @@ def ping():
         time.sleep(2)
     return 1
 
-task = ping.delay()
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
@@ -61,6 +61,7 @@ task = ping.delay()
 @app.route("/")
 def index():
     cleanup()
+    ping.delay()
     return render_template("index.html")
     
 @app.route("/acknowledgments")
