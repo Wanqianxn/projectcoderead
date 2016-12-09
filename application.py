@@ -32,10 +32,10 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 q = Queue(connection=conn)
-name = ''
-thedata = []
-hprev = numpy.zeros((100,1))
-txt = ''
+global name = ''
+global thedata = []
+global hprev = numpy.zeros((100,1))
+global txt = ''
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
@@ -237,6 +237,8 @@ def create():
 @app.route("/create/genesis")
 def creategenesis():
     thedata = fixed("static/create/genesis.txt")
+    print(thedata[15])
+    print("yes")
     name = 'static/create/genesis.txt'
     return render_template("creategenesis.html")
     
