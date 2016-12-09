@@ -40,8 +40,6 @@ app.jinja_env.globals['thedata'] = []
 @app.route("/")
 def index():
     cleanup()
-    hey = q.enqueue(ping)
-    print(hey.result)
     return render_template("index.html")
     
 @app.route("/acknowledgments")
