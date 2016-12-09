@@ -294,7 +294,6 @@ def createemma():
 # Jsonify acts as the medium through which Javascript AJAX requests are sent to the Python server. Both the functions below are for the Create section.
 @app.route('/writeupdate')
 def writeupdate():
-    print(currentiter + " AAA")
     return jsonify(result=3)
     
     
