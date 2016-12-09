@@ -31,7 +31,8 @@
       
     window.setTimeout(function(){  
     setInterval(function(){
-   $.getJSON('/writeupdate', 
+   $.getJSON('/writeupdate',
+       { d : 'static/genesis.txt'},
         function(data) {
         $("#morphine").text(data.result);
       });
