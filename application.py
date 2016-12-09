@@ -49,7 +49,7 @@ def make_celery(app):
 celery = make_celery(app)
 
 @celery.task()
-def ping():
+def pinger():
     return "yes"
 
 
@@ -59,7 +59,7 @@ def ping():
 @app.route("/")
 def index():
     cleanup()
-    asparagus = ping.delay()
+    asparagus = pinger.delay()
     print(asparagus)
     return render_template("index.html")
     

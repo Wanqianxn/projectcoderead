@@ -12,8 +12,7 @@ nltk.download('ptb')
 def cleanup():
     # Cleanup for uploads folder, used in all 4 apps.
     for filename in os.listdir('uploads'):
-        if filename.startswith("input"):
-            os.remove("uploads/"+filename)
+        os.remove("uploads/"+filename)
     # Cleanup for Map.
     for filename in os.listdir('static/jsonobjects'):
         if filename.startswith("input"):
