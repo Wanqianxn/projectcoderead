@@ -48,12 +48,12 @@ def make_celery(app):
     
 celery = make_celery(app)
 
-@celery.task
-def ping():
-    while True:
-        print('yes')
-        time.sleep(2)
-    return 1
+#@celery.task
+#def ping():
+#    while True:
+  #      print('yes')
+ #       time.sleep(2)
+ #   return 1
 
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
@@ -62,7 +62,7 @@ def ping():
 @app.route("/")
 def index():
     cleanup()
-    ping.delay()
+    #ping.delay()
     return render_template("index.html")
     
 @app.route("/acknowledgments")
