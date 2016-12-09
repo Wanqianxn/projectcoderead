@@ -313,9 +313,9 @@ def spectrum():
                 countw += 1
                 if word == "1":
                     divider = (0.007*math.log(total))*prev + (1-(0.007*math.log(total)))*(countw/total)
-                    print("prev ", prev)
+                    print("total", total)
+                    print("count ", countw)
                     print("countw/total ", countw/total)
-                    print("divider ", divider)
                     emot.append({"index": divider, "rgb": [0,0,0]})
                     emot.append({"index": countw/total, "rgb": rainbow[emotion]})
                     emot.append({"index": ((2*(countw/total)) - divider), "rgb": [0,0,0]})
