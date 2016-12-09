@@ -78,8 +78,11 @@ def map():
                 os.remove("uploads/"+filename)
             return render_template("map.html", toolong = True)
         # These functions help generate the actual graph.
+        print("keep alive")
         modify()
+        print("keep alive again")
         network()
+        print("keep alive more")
         return render_template("mapcreate.html")
     return render_template("map.html")
 
