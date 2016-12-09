@@ -1,4 +1,4 @@
-import os, re, time, signal, urlparse
+import os, re, time, signal
 from flask import Flask, jsonify, render_template, request, redirect, url_for, Response
 from flask_jsglue import JSGlue
 from werkzeug.utils import secure_filename
@@ -27,15 +27,9 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-redis_url = os.getenv('REDISTOGO_URL')
-
-urlparse.uses_netloc.append('redis')
-url = urlparse.urlparse(redis_url)
-conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
-
 app.config.update(
-    CELERY_BROKER_URL='redis://localhost:6379',
-    CELERY_RESULT_BACKEND='redis://localhost:6379'
+    CELERY_BROKER_URL='redis://localhost:6379/0',
+    CELERY_RESULT_BACKEND='redis://localhost:6379/0'
 )
  
 def make_celery(app):
