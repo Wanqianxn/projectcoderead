@@ -27,6 +27,15 @@
         <input id="submit" type="submit">
     </form>
     </section>
+    <script>
+        function keep_alive() {
+    var http_request = new XMLHttpRequest();
+    http_request.open('GET', "/restricted_file_url");
+    http_request.send(null);
+		}
+
+	setInterval(keep_alive,10000);
+    </script>
     {% if nofile %}
         <script>alert("No file chosen.");</script>
     {% endif %}
