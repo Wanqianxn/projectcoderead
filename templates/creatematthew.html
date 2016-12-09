@@ -37,6 +37,12 @@
       });
     }, 500);
     }, 3000);
+    
+    back.addEventListener("click",function(){
+        $.getJSON('/writerefresh',
+        function(data) {
+      });
+    });
 	</script>
 </body>
 </html>
