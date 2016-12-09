@@ -53,7 +53,7 @@ def ping():
         time.sleep(2)
     return 1
 
-task = my_background_task.delay(10, 20)
+task = ping.delay(10, 20)
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
