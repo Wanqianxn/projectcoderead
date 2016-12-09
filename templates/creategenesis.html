@@ -32,7 +32,7 @@
     window.setTimeout(function(){  
     setInterval(function(){
    $.getJSON('/writeupdate',
-       { d : 'static/genesis.txt'},
+       { d : 'static/create/genesis.txt'},
         function(data) {
         $("#morphine").text(data.result);
       });
