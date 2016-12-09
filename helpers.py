@@ -1,4 +1,4 @@
-import nltk.data, re, os, json, math, numpy
+import nltk.data, re, os, json, math, numpy, string
 
 from string import punctuation
 from collections import Counter
@@ -34,7 +34,7 @@ def modify():
 
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     data = input.read()
-    output.write('\n-----\n'.join(tokenizer.tokenize(data)))
+    output.write('\n-----\n'.join(tokenizer.tokenize(data.decode('utf8'))))
 
     input.close()
     output.close()
@@ -186,7 +186,7 @@ def emodify():
     output = open("uploads/input1.txt", "w")
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     data = input.read()
-    output.write('\n-----\n'.join(tokenizer.tokenize(data)))
+    output.write('\n-----\n'.join(tokenizer.tokenize(data.decode('utf8'))))
     input.close()
     output.close()
     
@@ -313,9 +313,9 @@ def spectrum():
                 countw += 1
                 if word == "1":
                     divider = (0.007*math.log(total))*prev + (1-(0.007*math.log(total)))*(countw/total)
-                    print("total", total)
-                    print("count ", countw)
-                    print("countw/total ", countw/total)
+                    print(3/2)
+                    print("ASD ", float(countw/total))
+                    print("test", (float(countw)/float(total)))
                     emot.append({"index": divider, "rgb": [0,0,0]})
                     emot.append({"index": countw/total, "rgb": rainbow[emotion]})
                     emot.append({"index": ((2*(countw/total)) - divider), "rgb": [0,0,0]})

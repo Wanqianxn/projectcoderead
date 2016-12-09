@@ -351,7 +351,7 @@ def creategenesis():
         
           p += seq_length 
           n += 1 
-    yes = write.delay("static/create/genesis.txt")
+    yes = write("static/create/genesis.txt")
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
