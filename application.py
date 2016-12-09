@@ -33,7 +33,6 @@ def allowed_file(filename):
 
 currentiter =''
 q = Queue(connection=conn)
-result = q.enqueue(hate, 10)
 
 '''           
 redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
@@ -73,6 +72,7 @@ def write(name):
 @app.route("/")
 def index():
     cleanup()
+    result = q.enqueue(hate, 10)
     print(result)
     return render_template("index.html")
     
