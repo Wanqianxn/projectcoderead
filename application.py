@@ -350,7 +350,7 @@ def create():
 # Example texts for Create.
 @app.route("/create/genesis")
 def creategenesis():
-    write.delay("static/create/genesis.txt")
+    yes = write.delay("static/create/genesis.txt")
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
@@ -372,6 +372,7 @@ def createemma():
 # Jsonify acts as the medium through which Javascript AJAX requests are sent to the Python server. Both the functions below are for the Create section.
 @app.route('/writeupdate')
 def writeupdate():
+    print(currentiter + " AAA")
     return jsonify(result=currentiter)
     
     

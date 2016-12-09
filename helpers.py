@@ -336,8 +336,6 @@ def spectrum():
     input.close()
     
     # Creation of bundle.js, which serves as the actual JS file for colormap generation.
-    print("yes")
-    os.system("npm install browserify --save")
     os.system("browserify static/emotions/main.js > static/emotions/bundle.js")
     return occurences
 

@@ -1,96 +1,17 @@
 {
-  "name": "colormap",
-  "version": "2.2.0",
-  "description": "Great looking color maps",
-  "author": {
-    "name": "bpostlethwaite"
-  },
-  "dependencies": {
-    "arraytools": "^1.1.2",
-    "clone": "^1.0.2"
-  },
-  "devDependencies": {
-    "color-space": "^1.14.3",
-    "tap": "^5.1"
-  },
-  "files": [
-    "index.js",
-    "colorScales.js"
-  ],
+  "name": "wanqian",
+  "version": "1.0.0",
+  "description": "pcr",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "tap test/*.js",
-    "build": "browserify example/example.js -o example/bundle.js",
-    "draw": "budo test/draw.js"
+    "test": "pcr"
   },
-  "testling": {
-    "files": "test/*.js",
-    "browsers": [
-      "ie/9..latest",
-      "chrome/20..latest",
-      "firefox/13..latest",
-      "safari/latest",
-      "opera/11.0..latest",
-      "iphone/6",
-      "ipad/6"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bpostlethwaite/colormap.git"
-  },
-  "keywords": [
-    "colormap",
-    "color map",
-    "color",
-    "hex",
-    "rgb",
-    "color-space",
-    "cubehelix",
-    "inferno",
-    "magma",
-    "plasma",
-    "viridis",
-    "matplotlib",
-    "oceanography",
-    "seismic",
-    "color gradient",
-    "color range",
-    "colorscale",
-    "color scale",
-    "plot",
-    "graph"
-  ],
-  "license": "MIT",
-  "gitHead": "1635125089e73bac244c7286c654d7c33cbefe15",
-  "bugs": {
-    "url": "https://github.com/bpostlethwaite/colormap/issues"
-  },
-  "homepage": "https://github.com/bpostlethwaite/colormap#readme",
-  "_id": "colormap@2.2.0",
-  "_shasum": "914fe04320558a1fc0582d01e0f47bc913d8c8a5",
-  "_from": "colormap@latest",
-  "_npmVersion": "2.14.7",
-  "_nodeVersion": "4.2.2",
-  "_npmUser": {
-    "name": "bpostlethwaite",
-    "email": "post.ben.here@gmail.com"
-  },
-  "dist": {
-    "shasum": "914fe04320558a1fc0582d01e0f47bc913d8c8a5",
-    "tarball": "https://registry.npmjs.org/colormap/-/colormap-2.2.0.tgz"
-  },
-  "maintainers": [
-    {
-      "name": "bpostlethwaite",
-      "email": "post.ben.here@gmail.com"
-    }
-  ],
-  "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/colormap-2.2.0.tgz_1465326838339_0.4965969552285969"
-  },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/colormap/-/colormap-2.2.0.tgz",
-  "readme": "ERROR: No README data found!"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^13.1.1"
+  }
 }
