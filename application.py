@@ -268,7 +268,7 @@ def writeupdate():
         thedata = app.jinja_env.globals['thedata']
     thedata[10],thedata[11],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16],thedata[17],thedata[18], thedata[19] = iteration(d,thedata[10],thedata[11],thedata[1],thedata[18],thedata[3],thedata[17],thedata[4],thedata[2],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16])
     app.jinja_env.globals['thedata'] = thedata
-    return jsonify(result=txt)
+    return jsonify(result=thedata[19])
     
     
 if __name__ == '__main__':
