@@ -26,10 +26,11 @@ def after_request(response):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
+           
+redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 app.config.update(
-    CELERY_BROKER_URL='redis://localhost:6379/0',
-    CELERY_RESULT_BACKEND='redis://localhost:6379/0'
+    CELERY_BROKER_URL=redis_url,
+    CELERY_RESULT_BACKEND=redis_url
 )
  
 def make_celery(app):
