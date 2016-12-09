@@ -39,10 +39,11 @@
     }, 500);
     }, 3000);
     back.addEventListener("click",function(){
+        alert("return");
         $.getJSON('/writerefresh',
         function(data) {
       });
-    }, 500);
+    });
     
 	</script>
 </body>
