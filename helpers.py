@@ -34,7 +34,7 @@ def modify():
 
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     data = input.read()
-    output.write('\n-----\n'.join(tokenizer.tokenize(data.decode('utf8'))))
+    output.write('\n-----\n'.join(tokenizer.tokenize(data.encode('ascii'))))
 
     input.close()
     output.close()
@@ -186,7 +186,7 @@ def emodify():
     output = open("uploads/input1.txt", "w")
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     data = input.read()
-    output.write('\n-----\n'.join(tokenizer.tokenize(data.decode('utf8'))))
+    output.write('\n-----\n'.join(tokenizer.tokenize(data.encode('ascii'))))
     input.close()
     output.close()
     
@@ -290,6 +290,7 @@ def spectrum():
             for word in line.split():
                 total += 1
         input.close()
+        total = float(total)
         
         # Creation of JSON structure containing all the emotional words, as well as their position in the text (i.e. ratio of current count to total word count.)
         input = open("uploads/input"+emotion+".txt","r")
@@ -311,11 +312,9 @@ def spectrum():
         for line in input:
             for word in line.split():
                 countw += 1
+                countw = float(countw)
                 if word == "1":
                     divider = (0.007*math.log(total))*prev + (1-(0.007*math.log(total)))*(countw/total)
-                    print(3/2)
-                    print("ASD ", float(countw/total))
-                    print("test", (float(countw)/float(total)))
                     emot.append({"index": divider, "rgb": [0,0,0]})
                     emot.append({"index": countw/total, "rgb": rainbow[emotion]})
                     emot.append({"index": ((2*(countw/total)) - divider), "rgb": [0,0,0]})
