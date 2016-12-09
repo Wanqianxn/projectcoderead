@@ -33,9 +33,9 @@ def allowed_file(filename):
 
 q = Queue(connection=conn)
 
-global thedata
-global hprev
-global txt
+#global thedata
+#global hprev
+#global txt
 app.jinja_env.globals['thedata'] = []
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
@@ -266,7 +266,7 @@ def writeupdate():
         thedata.append(txt)
     else:
         thedata = app.jinja_env.globals['thedata']
-    thedata[10],thedata[11],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16],thedata[17],thedata[18], thedata[19] = iteration(d,thedata[10],thedata[11],thedata[1],hprev,thedata[3],thedata[17],thedata[4],thedata[2],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16])
+    thedata[10],thedata[11],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16],thedata[17],thedata[18], thedata[19] = iteration(d,thedata[10],thedata[11],thedata[1],thedata[18],thedata[3],thedata[17],thedata[4],thedata[2],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16])
     app.jinja_env.globals['thedata'] = thedata
     return jsonify(result=txt)
     
