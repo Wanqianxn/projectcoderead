@@ -271,7 +271,7 @@ def create():
 @app.route("/create/genesis")
 def creategenesis():
     result = q.enqueue(write, 'static/create/genesis.txt')
-    time.sleep(3)
+    time.sleep(10)
     input = open("uploads/write.txt","r")
     print(input.readlines())
     input.close()
