@@ -32,11 +32,8 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 q = Queue(connection=conn)
-
-#global thedata
-#global hprev
-#global txt
 app.jinja_env.globals['thedata'] = []
+
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
 # Index, Acknowledgments and Contact.         
@@ -236,7 +233,6 @@ def create():
 # Example texts for Create.
 @app.route("/create/genesis")
 def creategenesis():
-    app.jinja_env.globals['thedata'] == []
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
@@ -275,7 +271,7 @@ def writeupdate():
     
 @app.route('/writerefresh')
 def writerefresh(): 
-    app.jinja_env.globals['thedata'] == []   
+    app.jinja_env.globals['thedata'] = []   
     return jsonify(result=1)    
     
 if __name__ == '__main__':
