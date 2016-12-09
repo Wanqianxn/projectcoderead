@@ -71,6 +71,8 @@ def write(name):
 @app.route("/")
 def index():
     cleanup()
+    hey = q.enqueue(ping)
+    print(hey.result)
     return render_template("index.html")
     
 @app.route("/acknowledgments")
@@ -271,14 +273,6 @@ def create():
 @app.route("/create/genesis")
 def creategenesis():
     result = q.enqueue(write, 'static/create/genesis.txt')
-    time.sleep(10)
-    input = open("uploads/write.txt","r")
-    print(input.readlines())
-    input.close()
-    time.sleep(2)
-    input = open("uploads/write.txt","r")
-    print(input.readlines())
-    input.close()
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")

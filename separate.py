@@ -82,9 +82,10 @@ def write(name):
       if n % 100 == 0:
         sample_ix = sample(hprev, inputs[0], 200)
         txt = ''.join(ix_to_char[ix] for ix in sample_ix)
-        input = open("uploads/write.txt","w")
-        input.write(txt)
-        input.close()
+        print(txt)
+        #input = open("uploads/write.txt","w")
+        #input.write(txt)
+        #input.close()
       
       for param, dparam, mem in zip([Wxh, Whh, Why, bh, by], 
                                     [dWxh, dWhh, dWhy, dbh, dby], 
