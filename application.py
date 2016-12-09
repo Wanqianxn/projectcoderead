@@ -255,7 +255,7 @@ def createodyssey():
     return render_template("createodyssey.html")
     
 @app.route("/create/emma")
-def createemma()
+def createemma():
     app.jinja_env.globals['thedata'] == []
     return render_template("createemma.html")
 
