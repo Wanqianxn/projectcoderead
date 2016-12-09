@@ -53,7 +53,7 @@ def make_celery(app):
 celery = make_celery(app)
 
 @celery.task()
-def write(name):
+#def write(name):
     data = open(name, 'r').read()
     chars = list(set(data))
     data_size, vocab_size = len(data), len(chars)
@@ -146,6 +146,10 @@ def write(name):
     
       p += seq_length 
       n += 1 
+def write(name):
+    currentiter = name
+    print("NAME")
+    return name
 
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
@@ -354,6 +358,7 @@ def create():
 @app.route("/create/genesis")
 def creategenesis():
     yes = write.delay("static/create/genesis.txt")
+    print(yes)
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")

@@ -338,10 +338,7 @@ def spectrum():
     input = open("static/emotions/node_modules/colormap/colorScales.js","a")
     input.write("};")
     input.close()
-    #input = open("static/emotions/node_modules/colormap/colorScales.js","r")
-    #for line in input:
-    #    print(line)
-    #input.close()
+
     # Creation of bundle.js, which serves as the actual JS file for colormap generation.
     os.system("browserify static/emotions/main.js > static/emotions/bundle.js")
     return occurences
