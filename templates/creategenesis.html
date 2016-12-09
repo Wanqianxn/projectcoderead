@@ -29,12 +29,14 @@
     }
     window.setInterval(changecolour, 1000);
       
+    window.setTimeout(function(){  
     setInterval(function(){
    $.getJSON('/writeupdate', 
         function(data) {
         $("#morphine").text(data.result);
       });
     }, 500);
+    }, 10000);
 	</script>
 </body>
 </html>
