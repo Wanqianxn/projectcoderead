@@ -51,7 +51,7 @@ celery = make_celery(app)
 @celery.task
 def ping():
     while True:
-        os.system('ping -t 0.0.0.0')
+        print('yes')
         time.sleep(2)
     return 1
 
@@ -101,7 +101,6 @@ def map():
                 os.remove("uploads/"+filename)
             return render_template("map.html", toolong = True)
         # These functions help generate the actual graph.
-        ping()
         modify()
         network()
         return render_template("mapcreate.html")
