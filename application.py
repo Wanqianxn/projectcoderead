@@ -236,22 +236,27 @@ def create():
 # Example texts for Create.
 @app.route("/create/genesis")
 def creategenesis():
+    app.jinja_env.globals['thedata'] == []
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
 def creatematthew():
+    app.jinja_env.globals['thedata'] == []
     return render_template("creatematthew.html")
     
 @app.route("/create/inferno")
 def createinferno():
+    app.jinja_env.globals['thedata'] == []
     return render_template("createinferno.html")
     
 @app.route("/create/odyssey")
 def createodyssey():
+    app.jinja_env.globals['thedata'] == []
     return render_template("createodyssey.html")
     
 @app.route("/create/emma")
-def createemma():
+def createemma()
+    app.jinja_env.globals['thedata'] == []:
     return render_template("createemma.html")
 
 # Jsonify acts as the medium through which Javascript AJAX requests are sent to the Python server. Both the functions below are for the Create section.
@@ -269,6 +274,7 @@ def writeupdate():
         print("yes")
     thedata[10],thedata[11],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16],thedata[17],thedata[18], thedata[19] = iteration(d,thedata[10],thedata[11],thedata[1],thedata[18],thedata[3],thedata[17],thedata[4],thedata[2],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16])
     app.jinja_env.globals['thedata'] = thedata
+    result = "Iteration: "+str(thedata[10])+thedata[19]
     return jsonify(result=thedata[19])
     
     
