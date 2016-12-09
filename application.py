@@ -256,7 +256,7 @@ def createodyssey():
     
 @app.route("/create/emma")
 def createemma()
-    app.jinja_env.globals['thedata'] == []:
+    app.jinja_env.globals['thedata'] == []
     return render_template("createemma.html")
 
 # Jsonify acts as the medium through which Javascript AJAX requests are sent to the Python server. Both the functions below are for the Create section.
