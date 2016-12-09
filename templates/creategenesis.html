@@ -28,9 +28,6 @@
         tramadol.style["border-color"] = randomColor({luminosity: 'bright', hue: 'yellow'});
     }
     window.setInterval(changecolour, 1000);
-    var getit = $.getJSON('/writestory', {
-        s: "static/create/genesis.txt"
-      });
       
     setInterval(function(){
    $.getJSON('/writeupdate', 
