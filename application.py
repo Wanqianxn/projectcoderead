@@ -31,7 +31,6 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-currentiter =''
 q = Queue(connection=conn)
 
 '''           
@@ -72,9 +71,6 @@ def write(name):
 @app.route("/")
 def index():
     cleanup()
-    result = q.enqueue(hate, 10)
-    time.sleep(1)
-    print(result.result)
     return render_template("index.html")
     
 @app.route("/acknowledgments")
@@ -274,8 +270,9 @@ def create():
 # Example texts for Create.
 @app.route("/create/genesis")
 def creategenesis():
-    yes = write.delay("static/create/genesis.txt")
-    print(yes)
+    result = q.enqueue(write, 'static/create/genesis.txt')
+    time.sleep(1)
+    print(result.result)
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
