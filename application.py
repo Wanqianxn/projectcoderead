@@ -73,7 +73,8 @@ def write(name):
 def index():
     cleanup()
     result = q.enqueue(hate, 10)
-    print(result)
+    time.sleep(1)
+    print(result.result)
     return render_template("index.html")
     
 @app.route("/acknowledgments")
