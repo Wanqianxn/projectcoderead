@@ -53,7 +53,7 @@ def make_celery(app):
 celery = make_celery(app)
 
 @celery.task()
-#def write(name):
+'''def write(name):
     data = open(name, 'r').read()
     chars = list(set(data))
     data_size, vocab_size = len(data), len(chars)
@@ -145,7 +145,7 @@ celery = make_celery(app)
         param += -learning_rate * dparam / numpy.sqrt(mem + 1e-8) 
     
       p += seq_length 
-      n += 1 
+      n += 1 '''
 def write(name):
     currentiter = name
     print("NAME")
