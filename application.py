@@ -32,6 +32,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 q = Queue(connection=conn)
+name = ''
 thedata = []
 hprev = numpy.zeros((100,1))
 txt = ''
@@ -236,6 +237,7 @@ def create():
 @app.route("/create/genesis")
 def creategenesis():
     thedata = fixed("static/create/genesis.txt")
+    name = 'static/create/genesis.txt'
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
