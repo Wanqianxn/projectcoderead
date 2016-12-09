@@ -23,6 +23,7 @@
     <script>
     var elem = document.getElementById("name");
     var tramadol = document.getElementById("heroin");
+    var back = document.getElementById("back");
     function changecolour() {
         elem.style.color = randomColor({luminosity: 'bright', hue: 'purple'});
         tramadol.style["border-color"] = randomColor({luminosity: 'bright', hue: 'purple'});
@@ -37,6 +38,12 @@
       });
     }, 500);
     }, 3000);
+    back.addEventListener("click",function(){
+        $.getJSON('/writerefresh',
+        function(data) {
+      });
+    }, 500);
+    
 	</script>
 </body>
 </html>
