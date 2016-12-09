@@ -32,38 +32,9 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 q = Queue(connection=conn)
-
-'''           
-redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
-app.config.update(
-    CELERY_BROKER_URL=redis_url,
-    CELERY_RESULT_BACKEND=redis_url,
-    BROKER_POOL_LIMIT = 9,
-    CELERY_REDIS_MAX_CONNECTIONS = 9
-)
- 
-
-def make_celery(app):
-    celery = Celery(app.import_name, backend=app.config['CELERY_RESULT_BACKEND'],
-                    broker=app.config['CELERY_BROKER_URL'])
-    celery.conf.update(app.config)
-    TaskBase = celery.Task
-    class ContextTask(TaskBase):
-        abstract = True
-        def __call__(self, *args, **kwargs):
-            with app.app_context():
-                return TaskBase.__call__(self, *args, **kwargs)
-    celery.Task = ContextTask
-    return celery
-
-celery = make_celery(app)
-
-@celery.task()
-def write(name):
-    currentiter = name
-    print("NAME")
-    return name
-'''
+thedata = []
+hprev = numpy.zeros((100,1))
+txt = ''
 
 # General comments: For every page generated, a cleanup function is first executed on GET to clean the system free of uploaded files. For the pages with files to be uploaded, additional code for POST is written to vet those files, make sure they are of the right size before saving them to be processed and outputted.
 
@@ -238,14 +209,6 @@ def genrevisual():
 @app.route("/create",  methods=["GET", "POST"])
 def create():
     cleanup()
-    # This part forcibly stops the infinite while loop in writestory() by destroying and recreating the 'uploads' folder.
-    for filename in os.listdir('uploads'):
-        if filename.startswith("input"):
-            os.remove("uploads/"+filename)
-    os.rmdir("uploads")
-    time.sleep(5)
-    os.makedirs("uploads")
-    
     if request.method == "POST":
         if 'inputfile' not in request.files:
            return render_template("create.html", nofile = True)
@@ -272,7 +235,7 @@ def create():
 # Example texts for Create.
 @app.route("/create/genesis")
 def creategenesis():
-    result = q.enqueue(write, 'static/create/genesis.txt')
+    thedata = fixed("static/create/genesis.txt")
     return render_template("creategenesis.html")
     
 @app.route("/create/matthew")
@@ -294,7 +257,8 @@ def createemma():
 # Jsonify acts as the medium through which Javascript AJAX requests are sent to the Python server. Both the functions below are for the Create section.
 @app.route('/writeupdate')
 def writeupdate():
-    return jsonify(result=3)
+    thedata[10],thedata[11],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16],thedata[17],hprev,txt = iteration(name,thedata[10],thedata[11],thedata[1],hprev,thedata[3],thedata[17],thedata[4],thedata[2],thedata[5],thedata[6],thedata[8],thedata[7],thedata[9],thedata[12],thedata[13],thedata[14],thedata[15],thedata[16])
+    return jsonify(result=txt)
     
     
 if __name__ == '__main__':
