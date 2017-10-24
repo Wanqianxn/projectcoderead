@@ -1,7 +1,7 @@
-Project CodeRead
+# Project CodeRead
 
 
-by Wanqian Yang
+### by Wanqian Yang
 
 
-Comments on code only for the Python scripts and the HTML files with significant Javascript. Remaining files are CSS style files, as well as text files for various books analyzed. For the Javascript files, comments will only be for Genesis (i.e. "mapgenesis.html", "creategenesis.html" and "emotiongenesis.html"), since the files for the other texts are similar.
+My final project for Harvard College's CS50. This is a web application designed to showcase the use of computational methods in text processing, in the field known as the digital humanities. Data visualization packages made use of include sigma.js and plotly. A basic recurrent neural network is adapted from [char-rnn by Andrej Karpathy](https://github.com/karpathy).
